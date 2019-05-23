@@ -3,7 +3,8 @@ var path = require('path');
 import * as fs from 'fs';
 
 export interface ProjectConfig {
-    sourceRegion: string;
+    region: string;
+    sourceRegion?: string;
     sourceBucket?: string;
     applicationName?: string;
     projectName?: string;
@@ -22,7 +23,7 @@ export class Config {
     constructor(options :Options) {
         // TODO: default options, e.g. cwd = cwd: process.cwd()
         this.options = options;
-        this.getProjectConfig();
+        this.getConfig();
     }
     
     getConfig():object {
@@ -31,9 +32,10 @@ export class Config {
     }
   
     getProjectConfig(): ProjectConfig {
-        let ProjectConfig: ProjectConfig = { sourceRegion: 'ap-southeast-2'};
-        // console.log(this.config);
-        return ProjectConfig;
+        let projectConfig: ProjectConfig = { region: 'ap-southeast-1'};
+        projectConfig.sourceRegion = this.config.region;
+        console.log(this.config);
+        return projectConfig;
     }
   
     readFilesSync(dir :string):any {
